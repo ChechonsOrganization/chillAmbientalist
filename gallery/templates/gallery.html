@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+	<section class="ftco-section ftco-bread">
+		<div class="container">
+			<div class="row no-gutters slider-text justify-content-center align-items-center">
+				<div class="col-md-8 ftco-animate">
+					<p class="breadcrumbs"><span class="mr-2"><a href="{% url 'gallery:index' %}">Inicio</a></span><span>Galería</span></p>
+					<h1 class="bread">Galería</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="ftco-section-3">
+		<div class="photograhy">
+			<div class="row">
+				{# Agarrar este para hacer el if #}
+				{% for g in gallery %}
+					<div class="col-md-4 ftco-animate">
+						{# Comprobar si la imagen asociada existe #}
+						<a 	
+							href="
+								{% if g.galleryimages_set.all.count %}
+									/uploads/{{ g.galleryimages_set.all.0.original_image_name |add:'.custom.jpg' }}
+								{% else %}
+									/uploads/images/default-image.jpg
+								{% endif %}" 
+							class="photography-entry img image-popup d-flex justify-content-start align-items-end" 
+							style="background-image: url(/uploads/{{ g.galleryimages_set.all.0.original_image_name |add:'.custom.jpg' }});">
+							<div class="overlay"></div>
+							<div class="text ml-4 mb-4">
+								<h3>{{ g.title }}</h3>
+								{# Llamar a la categoria en este caso retorna el titulo #}
+								{# esta consumiento muchas querys #}
+								<span class="tag">{{ g.category }}</span>
+							</div>
+						</a>
+						
+					</div>
+
+				{% endfor %}
+
+				{# Fin agarrar #}
+			</div>
+		</div>
+
+		{# Incluir paginacion #}
+		<div class="pagination justify-content-center">
+			{% include 'partials/pagination.html' with page_obj=gallery %}
+		</div>
+
+	</section>
+
+	
+
+{% endblock content%}

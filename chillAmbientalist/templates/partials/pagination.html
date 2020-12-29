@@ -1,0 +1,54 @@
+{# Codigo de pagination django topic paginations#}    
+
+{# <nav aria-label="Page navigation example"> #}
+<div class="block-27">
+    <ul>
+        {% comment %}
+            <li class="page-item disabled">
+                <a href="#">
+                    {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                </a>
+            </li>
+        {% endcomment %}    
+
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}"> &lt; </a>
+            </li>
+        {% comment %}
+            {% else %}
+            <li class="disabled">
+                <a href="#"> &lt; </a>
+            </li>
+        {% endcomment %}
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            
+            {% if i == page_obj.number %}
+                <li class="active">
+                    <a href="#">{{ i }}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="?page={{ i }}">{{ i }}</a>
+                </li>
+            {% endif %}
+            
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}"> &gt; </a>
+            </li>
+            {% comment %}
+                {% else %}
+                    <li class="disabled">
+                        <a href="#"> &gt; </a>
+                    </li>
+            {% endcomment %}
+        {% endif %}
+
+    </ul>
+</div>        
+{# </nav> #}

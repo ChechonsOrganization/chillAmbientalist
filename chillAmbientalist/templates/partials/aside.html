@@ -1,0 +1,26 @@
+{# Cargar static #}
+{% load static %}
+
+<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+    <h1 id="colorlib-logo">
+        <a href="{% url 'gallery:index' %}">
+            <span class="img" style="background-image: url({% static 'site/images/author.jpg' %});"></span>Chill Ambient
+        </a>
+    </h1>
+    <nav id="colorlib-main-menu" role="navigation">
+        <ul>
+            <li class="{% if request.resolver_match.url_name == 'index' %} colorlib-active {% endif %}"><a href="{% url 'gallery:index' %}">Inicio</a></li>
+            <li class="{% if request.resolver_match.url_name == 'gallery' %} colorlib-active {% endif %}"><a href="{% url 'gallery:gallery' %}">Galería</a></li>
+            <li class="{% if request.resolver_match.url_name == 'blog' %} colorlib-active {% endif %}"><a href="{% url 'gallery:blog' %}">Blogs</a></li>
+            <li class="{% if request.resolver_match.url_name == 'about' %} colorlib-active {% endif %}"><a href="{% url 'gallery:about' %}">Acerca de mí</a></li>
+            <li class="{% if request.resolver_match.url_name == 'services' %} colorlib-active {% endif %}"><a href="{% url 'gallery:services' %}">Mis Servicios</a></li>
+            <li class="{% if request.resolver_match.url_name == 'contact' %} colorlib-active {% endif %}"><a href="{% url 'gallery:contact' %}">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="colorlib-footer">
+        <h3>Chechon's Blog</h3>
+        <div class="d-flex justify-content-center">
+            <p>Modo Depuración</p>
+        </div>
+    </div>
+</aside>

@@ -1,0 +1,15 @@
+{% for gallery in latest_galleries %}
+    <li>
+        <a href="{{ gallery.get_absolute_url }}" class="img" 
+        style="background-image: url(
+        {% if gallery.galleryimages_set.all.count %}
+            /uploads/{{ gallery.galleryimages_set.all.0.image}}
+        {% else %}
+            /uploads/images/default-image.jpg
+        {% endif %}
+        );"></a>
+    </li>
+{% endfor %}
+
+{# for g in gallery_images|slice:"6" #}
+                        

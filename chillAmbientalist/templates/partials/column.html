@@ -1,0 +1,86 @@
+{% load static %}
+{% load gallery_tags %}
+
+<div class="col-lg-4 sidebar ftco-animate bg-light">
+    <div class="sidebar-box">
+        <form action="#" class="search-form">
+            <div class="form-group">
+                <span class="icon icon-search"></span>
+                <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+            </div>
+        </form>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="sidebar-heading">Categorias</h3>
+        <ul class="categories">
+            {# for para las categorias #}
+            {% for c in categories|slice:"5" %}
+                <li><a href="{% url 'gallery:category' c.url_clean %}">{{ c.title }} <span> {{ c.list.0 |length }} </span></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="sidebar-heading">Blogs Populares</h3>
+        {# hacer el for aquí o llamar un custom tag #}
+            {% get_most_commented_galleries as most_commented_galleries %}
+            {% for gallery in most_commented_galleries %}
+                <div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url(
+                                                    {% if gallery.galleryimages_set.all.count %}
+                                                        /uploads/{{ gallery.galleryimages_set.all.0.image}}
+                                                    {% else %}
+                                                        /uploads/images/default-image.jpg
+                                                    {% endif %}
+                                                    );"></a>
+                    <div class="text">
+                        <h3 class="heading"><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></h3>
+                        <div class="meta">
+                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-calendar"></span> {{ gallery.publish|date:"d M. Y" }}</a></div>
+                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-person"></span> {{ gallery.author }}</a></div>
+                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-chat"></span> 19</a></div>
+                            {# hacer un count en gallery_tag para los comentarios #}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {# fin for #}
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="sidebar-heading">Tags</h3>
+        <ul class="tagcloud">
+            {# realizar for #}	
+            {% for t in tags|slice:"8" %}
+                <a href="#" class="tag-cloud-link">{{t.name}}</a>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="sidebar-box subs-wrap img" style="background-image: url(images/bg_1.jpg);">
+        <div class="overlay"></div>
+        <h3 class="mb-4 sidebar-heading">Anuncios</h3>
+        <p class="mb-4">Estamos en modo desarrollo, seguimos añadiendo funcionalidades para el proyecto!</p>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="sidebar-heading">Archivos</h3>
+        <ul class="categories">
+            {# Cargar categorias #}
+            {% regroup gallery_images by created.year as year_list %}
+            {% for year in year_list|slice:"6" %}
+                {% regroup year.list by created.month as month_list %}
+                    {% for month in month_list %}
+                        <li><a href="{% url 'gallery:blog'%}{{year.grouper}}/{{month.grouper}}/">{{ month.list.0.created|date:'F Y' }} <span>({{ month.list|length }})</span></a></li>
+                    {% endfor %}
+            {% endfor %}
+            {# Fin cargar categorias #}
+        </ul>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3 class="sidebar-heading">Beta</h3>
+        <p>Este es un proyecto de prueba, todo los datos pueden ser susceptibles a cambios, al igual que colores entre otros.</p>
+    </div>
+</div><!-- END COL -->

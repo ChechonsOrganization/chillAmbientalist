@@ -1,0 +1,59 @@
+{% load static %}
+{% load gallery_tags %}
+
+<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container px-md-5">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Publicaciones Recientes</h2>
+                    <ul class="list-unstyled photo">
+                        {% show_latest_posts 6 %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Últimos Archivos</h2>
+                    <ul class="list-unstyled categories">
+                        {# Cargar categorias #}
+                        {% regroup gallery_images by created.year as year_list %}
+                        {% for year in year_list|slice:"2" %}
+                            {% regroup year.list by created.month as month_list %}
+                                {% for month in month_list %}
+                                    <li><a href="{% url 'gallery:blog'%}{{year.grouper}}/{{month.grouper}}/">{{ month.list.0.created|date:'F Y' }} <span>({{ month.list|length }})</span></a></li>
+                                {% endfor %}
+                        {% endfor %}
+                        {# Fin cargar categorias #}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">¿Tienes dudas?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Andorra 1927,
+                                    Maipú, Santiago, Chile</span></li><br>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+(569) 90911154</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span
+                                        class="text">sergio.04.ramirez@gmail.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+                    made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

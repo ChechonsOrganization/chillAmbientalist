@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="ftco-section ftco-bread">
+	<div class="container">
+		<div class="row no-gutters slider-text justify-content-center align-items-center">
+	        <div class="col-md-8 ftco-animate">
+	            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'gallery:index' %}">Inicio</a></span> <span>Blog</span></p>
+	            <h1 class="bread">Archivos</h1>
+	        </div>
+	    </div>
+	</div>
+</section>
+
+<section class="ftco-section">
+	<div class="container">
+	    <div class="row d-flex">
+	    	<div class="col-lg-8">
+	    		<div class="row">
+					{# Aqui va el for #}
+					
+					{% for g in object_list %}
+						<div class="col-md-12">
+							<div class="blog-entry ftco-animate d-md-flex">
+								<a href="{% url 'gallery:blog_detail' g.url_clean %}" class="img img-2" style="background-image: url(/uploads/{{ g.galleryimages_set.all.0.original_image_name |add:'.custom.jpg' }});"></a>
+								<div class="text text-2 p-4">
+									<h3 class="mb-2"><a href="{% url 'gallery:blog_detail' g.url_clean %}">{{ g.title }}</a></h3>
+										<div class="meta-wrap">
+											<p class="meta">
+												<span>{{ g.created }}</span>
+												<span><a href="{% url 'gallery:category' g.category.url_clean %}">{{ g.category }}</a></span>
+												<span>5 Comment</span>
+											</p>
+										</div>
+									<p class="mb-4">{{ g.description }}.</p>
+									<p><a href="{% url 'gallery:blog_detail' g.category.url_clean %}" class="btn-custom">Ir al Post <span class="ion-ios-arrow-forward"></span></a></p>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+					{# Aqui termina el for #}
+			    </div><!-- END-->
+			    
+				<div class="row">
+			        <div class="col">
+						{# incluir pagination #}
+						{% include 'partials/pagination.html' %}
+			        </div>
+			    </div>
+			</div>
+	    	
+			{% include 'partials/column.html' %}
+
+	    </div>
+	</div>
+</section>
+
+{% endblock content %}

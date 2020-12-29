@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% load gallery_tags %}
+
+{% block content %}
+
+<section class="ftco-section ftco-bread">
+	<div class="container">
+		<div class="row no-gutters slider-text justify-content-center align-items-center">
+	        <div class="col-md-8 ftco-animate">
+	            <p class="breadcrumbs"><span class="mr-2"><a href="{% url 'gallery:index' %}">Home</a></span> <span class="mr-2"><a href="{% url 'gallery:blog' %}">Blog</a></span> <span>{{ gallery.title }}</span></p>
+	            <h1 class="bread">{{ gallery.title }}</h1>
+	        </div>
+	    </div>
+	</div>
+</section>
+			
+<section class="ftco-section">
+	<div class="container">
+	    <div class="row">
+	    	<div class="col-lg-8 ftco-animate">
+                {% for g in gallery.galleryimages_set.all|slice:"1" %}
+                    <h2 class="mb-3 font-weight-bold">{{ g.title }}</h2>
+                {% endfor %}
+	            <p>{{ gallery.description }}</p>
+	            <p>
+                    {% for g in gallery.galleryimages_set.all %}
+                        <img src="/uploads/{{ g.original_image_name |add:'.custom.jpg' }}" alt="{{ g.title }}" class="img-fluid">
+                    {% endfor %}
+	            </p>
+	            <p>{{ gallery.body}}</p>
+	        
+	            <div class="tag-widget post-tag-container mb-5 mt-5">
+	              	<div class="tagcloud">
+						{% if gallery.tags.all.0 %}
+							{% for tag in gallery.tags.all %}
+								<a href="{% url 'gallery:gallery_list_by_tag' tag.slug %}" class="tag-cloud-link"> {{ tag.name }} </a>
+							{% endfor %}
+						{% endif %}
+	              	</div>
+	            </div>
+	            
+	            <div class="about-author d-flex p-4 bg-light">
+	              <div class="bio mr-5">
+	                <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+	              </div>
+	              <div class="desc">
+	                <h3>{{ gallery.author }}</h3>
+	                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+	              </div>
+	            </div>
+
+	            <div class="pt-5 mt-5">
+					{# Contar los comentarios #}
+					{% with comments.count as total_comments %}
+	              		<h3 class="mb-5 font-weight-bold">{{ total_comments }} Comentario{{ total_comments|pluralize }}</h3>
+					{% endwith %}
+					{# Listar los comentarios #}
+	              	<ul class="comment-list">
+					  	{# Realizar For #}
+						{% for comment in comments %}
+							<li class="comment">
+								<div class="vcard bio">
+									<img src="#" alt="Autor">
+								</div>
+								<div class="comment-body">
+									<h3>{{ comment.name }}</h3>
+									<div class="meta">{{ comment.created }}</div>
+									<p>{{ comment.body|linebreaks }}</p>
+									<p><a href="#" class="reply">Reply</a></p>
+								</div>
+							</li>	
+						{% endfor %}
+						{# Realizar For #}
+	            	</ul>
+	            	<!-- END comment-list -->
+	            	{# Formulario para crear un comentario nuevo #}
+					<div class="comment-form-wrap pt-5">
+						<h3 class="mb-5">Deja un comentario</h3>
+						<form method="post" class="p-3 p-md-5 bg-light">
+							{#% for field in comment_form %#}
+								<div class="form-group">
+									<label for="name">Nombre *</label>
+									{{ comment_form.name }}
+									{# <input type="text" class="form-control" id="name"> #}
+								</div>
+								<div class="form-group">
+									<label for="email">Email *</label>
+									{{ comment_form.email }}
+									{# <input type="email" class="form-control" id="email"> #}
+								</div>
+								<div class="form-group">
+									<label for="message">Mensaje</label>
+									{{ comment_form.body }}
+									{# <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea> #}
+								</div>
+							{#% endfor %#}
+							{% csrf_token %}
+							<div class="form-group">
+								<input type="submit" value="Publicar Comentario" class="btn py-3 px-4 btn-primary">
+							</div>
+						</form>
+					</div>
+	            </div>
+	        </div> <!-- .col-md-8 -->
+			<!-- .col-lg-4 -->
+	    	{% include 'partials/column.html' %}
+			<!-- end .col-lg-4 -->
+	    </div>
+	</div>
+</section>
+
+{% endblock content %}
