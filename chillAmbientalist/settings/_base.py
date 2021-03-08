@@ -13,8 +13,9 @@ import sys
 # Importar excepcion para seguridad (Libro)
 from django.core.exceptions import ImproperlyConfigured
 # Importar timestamp desde apps/core/versioning.py
-from chillAmbientalist.apps import get_git_changeset_timestamp
+from chillAmbientalist.apps.core.versioning import get_git_changeset_timestamp
 # Importar Transtlation Gettext
+from django.utils.translation import gettext_lazy as _
 
 # BASE_DIR
 BASE_DIR = os.path.dirname(

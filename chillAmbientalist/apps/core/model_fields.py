@@ -20,7 +20,7 @@ class MultilingualField(models.Field):
     def localized_field_name(name, lang_code):
         lang_code_safe = lang_code.replace("-", "_")
         return f"{name}_{lang_code_safe}"
-
+    
     def get_localized_field(self, lang_code, lang_name):
         _blank = (self._blank if lang_code == settings.LANGUAGE_CODE else True)
         localized_field = self.localized_field_model(
@@ -59,7 +59,7 @@ class MultilingualField(models.Field):
                     )
                 )
             return val
-
+        
         # generate language-speficic fields dynamically
         if not cls._meta.abstract:
             if self.localized_field_model:
