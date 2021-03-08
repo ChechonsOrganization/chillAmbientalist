@@ -23,7 +23,7 @@
 					{% for g in object_list %}
 						<div class="col-md-12">
 							<div class="blog-entry ftco-animate d-md-flex">
-								<a href="{% url 'gallery:blog_detail' g.url_clean %}" class="img img-2" style="background-image: url(/uploads/{{ g.galleryimages_set.all.0.original_image_name |add:'.custom.jpg' }});"></a>
+								<a href="{% url 'gallery:blog_detail' g.url_clean %}" class="img img-2" style="background-image: url('/uploads/{{ g.galleryimages_set.all.0.original_image_name |add:'.custom.jpg' }}') ;"></a>
 								<div class="text text-2 p-4">
 									<h3 class="mb-2"><a href="{% url 'gallery:blog_detail' g.url_clean %}">{{ g.title }}</a></h3>
 										<div class="meta-wrap">

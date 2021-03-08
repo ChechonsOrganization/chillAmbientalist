@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
 
 class UrlBase(models.Model):
-    """ 
+    """
     A replacement for get_absolute_url()
     Models extending this mixin sould have either get_url
     or get_url_path implemented.
@@ -45,7 +45,7 @@ class UrlBase(models.Model):
 
 class CreationModificationDataBase(models.Model):
     """
-    Abstract base class with a creation and modification date and time 
+    Abstract base class with a creation and modification date and time
     """
 
     created = models.DateTimeField(_("Creation Date and Time"),auto_now_add=True,)
@@ -58,7 +58,7 @@ class CreationModificationDataBase(models.Model):
 
 class MetaTagsBase(models.Model):
     """
-    Abstract base class for generating meta tags 
+    Abstract base class for generating meta tags
     """
     meta_keywords = models.CharField(_("Keywords"), max_length=255, blank=True, help_text=_("Separate keywords with commas."),)
     meta_description = models.CharField(_("Description"), max_length=255, blank=True,)
@@ -86,7 +86,7 @@ class MetaTagsBase(models.Model):
 
     def get_meta_author(self):
         return self.get_meta_field("author", self.meta_author)
-    
+
     def get_meta_copyright(self):
         return self.get_meta_field("copyright", self.meta_copyright)
 
@@ -109,19 +109,18 @@ def object_relation_base_factory(
     Returns a mixin class for generic foreign keys using
     "Content type - object ID" with dynamic field names.
     this function is just a class generator.
-
     Parameters:
     prefix:             a prefix, which is added in front of the fields
     prefix_verbose:     a verbose name of the prefix, used to
                         generate a title for the field column
                         of the content object in the Admin
-    add_related_name:   a boolean value indicating, that a 
+    add_related_name:   a boolean value indicating, that a
                         related name for the generated content
                         type foreign key should be added. This
                         value should be true, if you use more
                         than one ObjectRelationBase in your
                         model.
-    
+
     The model fields are created using this naming scheme:
         <<prefix>>_content_type
         <<prefix>>_object_id
@@ -132,10 +131,10 @@ def object_relation_base_factory(
 
     if prefix:
         p = f"{prefix}_"
-    
+
     prefix_verbose = prefix_verbose or _("Related object")
     limit_content_type_choices_to = limit_content_type_choices_to or {}
-    
+
     content_type_field = f"{p}content_type"
     object_id_field = f"{p}object_id"
     content_object_field = f"{p}content_object"
