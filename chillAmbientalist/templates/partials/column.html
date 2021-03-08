@@ -16,7 +16,7 @@
         <ul class="categories">
             {# for para las categorias #}
             {% for c in categories|slice:"5" %}
-                <li><a href="{% url 'gallery:category' c.url_clean %}">{{ c.title }} <span> {{ c.list.0 |length }} </span></a></li>
+                <li><a href="{% url 'gallery:category' c.url_clean %}">{{ c.title|capfirst }} <span> {{ c.list.0 |length }} </span></a></li>
             {% endfor %}
         </ul>
     </div>
@@ -37,9 +37,9 @@
                     <div class="text">
                         <h3 class="heading"><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></h3>
                         <div class="meta">
-                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-calendar"></span> {{ gallery.publish|date:"d M. Y" }}</a></div>
+                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-calendar"></span> {{ gallery.publish|date:"d F Y" }}</a></div>
                             <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-person"></span> {{ gallery.author }}</a></div>
-                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-chat"></span> 19</a></div>
+                            <div><a href="{{ gallery.get_absolute_url }}"><span class="icon-chat"></span> 0</a></div>
                             {# hacer un count en gallery_tag para los comentarios #}
                         </div>
                     </div>
