@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 # importar i18n_patterns (libro chapter 3)
 from django.conf.urls.i18n import i18n_patterns
-#añadir include
+# añadir include
 from django.urls import path, include
 # importar settings y static para que funcione el añadir static
 from django.conf import settings
@@ -25,17 +25,13 @@ from django.conf.urls.static import static
 # importar redirect (libro chapter 3)
 from django.shortcuts import redirect
 
-
-
-app_name='chillAmbientalist'
-
+app_name = 'chillAmbientalist'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Path de templates/partials/index.html
     path('', include('gallery.urls')),
 ]
-
 
 """
 url_patterns += static(settings.STATIC_URL,
@@ -45,7 +41,7 @@ urlpatterns += static("/uploads/", document_root=settings.MEDIA_ROOT)
 
 # ignorar aviso del VS
 # IMPORTANTE
- 
+
 """ in urls.py
 urlpatterns = [
     .....
@@ -53,6 +49,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static("/uploads/", document_root=settings.MEDIA_ROOT)
     urlpatterns += path('__debug__/', include(debug_toolbar.urls)),
