@@ -147,16 +147,16 @@ WSGI_APPLICATION = 'chillAmbientalist.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # Conexion de BBDD a MySQL / Postgresql
-# Utilizar pip install mysqlclient - psycopg2
+# Utilizar pip install mysql port 3306 - psycopg2 port 5432
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': get_secret('DATABASE_NAME'),
         'USER': get_secret('DATABASE_USER'),
         'PASSWORD': get_secret('DATABASE_PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '3306',
     }
 }
 
