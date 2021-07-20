@@ -53,7 +53,7 @@ SECRET_KEY = get_secret('DJANGO_SECRET_KEY')
 
 # Host Permitidos
 ALLOWED_HOSTS = [
-    'localhost', '127.0.0.1'
+    '*'
 ]
 
 # Configuramos los middleware para habilitar los peticiones de sitios cruzados
