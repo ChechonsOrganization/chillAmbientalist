@@ -155,7 +155,13 @@ DATABASES = {
         'NAME': get_secret('DATABASE_NAME'),
         'USER': get_secret('DATABASE_USER'),
         'PASSWORD': get_secret('DATABASE_PASSWORD'),
+        # dejar el localhost siempre y cuando agregemos extra_hosts en docker-compose y asignar el localhost externo
         'HOST': 'localhost',
+        # 'HOST': '172.20.10.3',
+        # sacar el puerto, podemos hacer ifconfig en nuestro local y el inet asignarlo en el docker-compose
+        # ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1
+        # podemos usar esta alternativa de tomar la direccion fuera del contenedor:
+        # 'HOST': 'host.docker.internal',
         'PORT': '5432',
     }
 }

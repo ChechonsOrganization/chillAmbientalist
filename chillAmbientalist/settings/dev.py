@@ -11,6 +11,7 @@ WEBSITE_URL = "http://127.0.0.1:8000"
 INTERNAL_IPS = [
     '127.0.0.1',
     'localhost',
+    '0.0.0.0'
 ]
 
 DEBUG_TOOLBAR_PANELS = [
